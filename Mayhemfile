@@ -1,0 +1,6 @@
+project: rnshah9/mayhem-dmg2img
+target: dmg2img
+
+cmds:
+  - cmd: /dmg2img/dmg2img @@
+    filepath: /test.dmg
