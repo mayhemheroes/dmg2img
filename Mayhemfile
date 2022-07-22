@@ -2,5 +2,4 @@ project: dmg2img
 target: dmg2img
 
 cmds:
-  - cmd: /dmg2img/dmg2img /test.dmg
-    filepath: /test.dmg
+  - cmd: /dmg2img/dmg2img @@
