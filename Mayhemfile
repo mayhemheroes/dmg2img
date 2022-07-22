@@ -2,4 +2,4 @@ project: dmg2img
 target: dmg2img
 
 cmds:
-  - cmd: /dmg2img/dmg2img @@
+  - cmd: /install/usr/bin/dmg2img @@
