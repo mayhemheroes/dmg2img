@@ -1,0 +1,16 @@
+project: dmg2img
+target: dmg2img
+
+# In-process libFuzzer target: /mayhem/dmg2img exports LLVMFuzzerTestOneInput (mayhem/dmg2img_fuzz.c)
+# and drives the real dmg2img CLI code path in-process (koly -> XML plist -> base64 -> mishblk ->
+# ADC/zlib/bzip2 decompress). It replaces the prior raw file-input CLI target, which was unfuzzable
+# under Mayhem (sanitized one-shot CLI -> mayhem-fuzz restart loop, 0 edges). Mayhem auto-detects the
+# libFuzzer entry point; the harness stages each input under /dev/shm (writable during coverage) and
+# discards output to /dev/null. Seeded with a valid .dmg so the run reaches the decompressors.
+cmds:
+  - cmd: /mayhem/dmg2img
+    libfuzzer: true
+
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/dmg2img/testsuite
