@@ -1,0 +1,15 @@
+project: dmg2img
+target: dmg2img
+
+# File-input target: the real dmg2img converter (instrumented) over a whole .dmg file. This is the
+# original mayhemheroes target's code path; seeded with a valid .dmg so the coverage-guided run
+# reaches the plist/base64/mishblk parser and the ADC/zlib/bzip2 decompressors. The image (incl.
+# /tmp) is read-only during coverage collection, so the input is staged and the output written
+# under /dev/shm (the only writable location).
+cmds:
+  - cmd: /mayhem/dmg2img -s @@ /dev/shm/dmg2img.out
+    filepath: /dev/shm/dmg2img.in.dmg
+
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/dmg2img/testsuite
